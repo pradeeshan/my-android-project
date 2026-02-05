@@ -4,8 +4,7 @@ pipeline {
     environment {
         ANDROID_HOME = "/Users/pradeeshan.n/Library/Android/sdk"
         PATH = "$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/bin"
-        LC_ALL = "en_US.UTF-8"
-        LANG = "en_US.UTF-8"
+        
     }
 
     stages {
@@ -26,7 +25,6 @@ pipeline {
                 script {
                     // This gets the tag name and sets it as the Build Name in Jenkins
                     def tag = sh(script: 'git describe --tags --exact-match', returnStdout: true).trim()
-                    currentBuild.displayName = "${tag}"
                     echo "Now building version: ${tag}"
                 }
             }
