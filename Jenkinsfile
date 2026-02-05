@@ -2,8 +2,11 @@ pipeline {
     agent any
 
     environment {
-        ANDROID_HOME = "/Users/appadm/Library/Android/sdk"
+        // Updated to your specific user path from the logs
+        ANDROID_HOME = "/Users/pradeeshan.n/Library/Android/sdk"
         PATH = "$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/bin"
+        
+        // Fixes the UTF-8 warning in your logs
         LC_ALL = "en_US.UTF-8"
         LANG = "en_US.UTF-8"
     }
