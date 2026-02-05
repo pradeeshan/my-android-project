@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     environment {
-        // Update these to match your server's environment
         ANDROID_HOME = "/Users/appadm/Library/Android/sdk"
         PATH = "$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/bin"
+        LC_ALL = "en_US.UTF-8"
+        LANG = "en_US.UTF-8"
     }
 
     stages {
