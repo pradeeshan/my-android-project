@@ -2,11 +2,8 @@ pipeline {
     agent any
 
     environment {
-        // Updated to your specific user path from the logs
         ANDROID_HOME = "/Users/pradeeshan.n/Library/Android/sdk"
         PATH = "$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/bin"
-        
-        // Fixes the UTF-8 warning in your logs
         LC_ALL = "en_US.UTF-8"
         LANG = "en_US.UTF-8"
     }
@@ -24,6 +21,17 @@ pipeline {
             }
         }
 
+        stage('Identify Tag') {
+            steps {
+                script {
+                    // This gets the tag name and sets it as the Build Name in Jenkins
+                    def tag = sh(script: 'git describe --tags --exact-match', returnStdout: true).trim()
+                    currentBuild.displayName = "${tag}"
+                    echo "Now building version: ${tag}"
+                }
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 sh 'bundle install'
@@ -32,7 +40,6 @@ pipeline {
 
         stage('Fastlane Build') {
             steps {
-                // This triggers the lane we wrote in the Fastfile
                 sh 'bundle exec fastlane android build_aab'
             }
         }
